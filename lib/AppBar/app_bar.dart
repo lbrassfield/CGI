@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cgi_app/Home/about.dart';
+import 'package:cgi_app/small_attributes.dart';
+import 'package:cgi_app/AppBar/logo_button.dart';
 
 class MyAppBar extends StatefulWidget {
   const MyAppBar({Key? key}) : super(key: key);
@@ -11,22 +12,69 @@ class MyAppBar extends StatefulWidget {
 class _MyAppBarState extends State<MyAppBar> {
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-        iconTheme: const IconThemeData(
-          color: Color.fromARGB(255, 255, 203, 59),
-        ),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              // Navigate to another page.
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const About(),
-              ));
-            },
-            child: const Text('About'),
+    return MediaType(
+        desktop: AppBar(
+          backgroundColor: Colors.white,
+          title: Padding(
+            padding: const EdgeInsets.all(10),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.indigo),
+              child: const Text(
+                "HOME",
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  '/',
+                );
+              },
+            ),
           ),
-        ],
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
-        automaticallyImplyLeading: false);
+          automaticallyImplyLeading: false,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.indigo),
+                child: const Text(
+                  "REQUEST A DEMO",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/ContactUs',
+                  );
+                },
+              ),
+            ),
+            Padding(
+                padding: const EdgeInsets.all(10),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.person,
+                    color: Colors.indigo,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/LogIn',
+                    );
+                  },
+                )),
+          ],
+        ),
+        mobile: AppBar(
+          iconTheme: const IconThemeData(
+            color: Color.fromARGB(255, 255, 203, 59),
+          ),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          title: const Row(children: [LogoButton()]),
+        ));
   }
 }
