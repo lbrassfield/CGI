@@ -16,3 +16,33 @@ class MediaType extends StatelessWidget {
     }
   }
 }
+
+class GradientBackgroundContainer extends StatelessWidget {
+  final SingleChildScrollView pageData;
+
+  const GradientBackgroundContainer({Key? key, required this.pageData})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: MediaQuery.of(context).size.width * 1.0,
+        height: MediaQuery.of(context).size.height * 1.0,
+        decoration: const BoxDecoration(
+          // Box decoration takes a gradient
+          gradient: LinearGradient(
+            // Where the linear gradient begins and ends
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.75, 0.98],
+            // Add one stop for each color. Stops should increase from 0 to 1
+            colors: [
+              // Colors are easy thanks to Flutter's Colors class.
+              Colors.white,
+              Colors.indigoAccent,
+            ],
+          ),
+        ),
+        child: pageData);
+  }
+}

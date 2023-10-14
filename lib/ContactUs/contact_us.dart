@@ -6,6 +6,7 @@ import 'package:cgi_app/ContactUs/email.dart';
 import 'package:cgi_app/ContactUs/last_name.dart';
 import 'package:cgi_app/ContactUs/message.dart';
 import 'package:cgi_app/ContactUs/phone_number.dart';
+import 'package:cgi_app/small_attributes.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({Key? key}) : super(key: key);
@@ -29,10 +30,13 @@ class _ContactUs extends State<ContactUs> {
     return Scaffold(
         appBar: const PreferredSize(
             preferredSize: Size.fromHeight(60), child: MyAppBar()),
-        body: Center(
-          child: SingleChildScrollView(
+        body: GradientBackgroundContainer(
+          pageData: SingleChildScrollView(
             child: Form(
               child: Column(children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.03,
+                ),
                 const Text("Contact Us",
                     style: TextStyle(color: Colors.indigo, fontSize: 40)),
                 SizedBox(
@@ -81,7 +85,10 @@ class _ContactUs extends State<ContactUs> {
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                )
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.1,
+                ),
               ]),
             ),
           ),

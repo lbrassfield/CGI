@@ -1,3 +1,4 @@
+import 'package:cgi_app/small_attributes.dart';
 import 'package:flutter/material.dart';
 import 'package:cgi_app/AppBar/app_bar.dart';
 
@@ -18,9 +19,12 @@ class _LogIn extends State<LogIn> {
     return Scaffold(
         appBar: const PreferredSize(
             preferredSize: Size.fromHeight(60), child: MyAppBar()),
-        body: Center(
-          child: SingleChildScrollView(
+        body: GradientBackgroundContainer(
+          pageData: SingleChildScrollView(
             child: Column(children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.width * 0.03,
+              ),
               SizedBox(
                   height: MediaQuery.of(context).size.height * 0.3,
                   width: MediaQuery.of(context).size.height * 0.6,
@@ -74,7 +78,12 @@ class _LogIn extends State<LogIn> {
                 width: MediaQuery.of(context).size.width * 0.35,
                 height: MediaQuery.of(context).size.height * 0.06,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/Analytics',
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
                       backgroundColor: Colors.indigo),

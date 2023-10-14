@@ -1,3 +1,6 @@
+// ignore_for_file: sized_box_for_whitespace
+
+import 'package:cgi_app/small_attributes.dart';
 import 'package:flutter/material.dart';
 import 'AppBar/app_bar.dart';
 import 'package:cgi_app/route_generator.dart';
@@ -12,16 +15,7 @@ void main() {
       routes: <String, WidgetBuilder>{
         '/': (context) => const MyApp(),
       },
-      // theme: ThemeData(
-      //   scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      //   inputDecorationTheme: const InputDecorationTheme(
-      //     focusedBorder: OutlineInputBorder(
-      //       borderSide: BorderSide(
-      //         color: Color.fromARGB(255, 255, 255, 255),
-      //       ),
-      //     ),
-      //   ),
-      // ),
+      theme: ThemeData(unselectedWidgetColor: Colors.white),
     ),
   );
 }
@@ -38,25 +32,8 @@ class _MyHomePageState extends State<MyApp> {
     return Scaffold(
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(60), child: MyAppBar()),
-      body: Container(
-        width: MediaQuery.of(context).size.width * 1.0,
-        height: MediaQuery.of(context).size.height * 1.0,
-        decoration: const BoxDecoration(
-          // Box decoration takes a gradient
-          gradient: LinearGradient(
-            // Where the linear gradient begins and ends
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.75, 0.98],
-            // Add one stop for each color. Stops should increase from 0 to 1
-            colors: [
-              // Colors are easy thanks to Flutter's Colors class.
-              Colors.white,
-              Colors.indigoAccent,
-            ],
-          ),
-        ),
-        child: SingleChildScrollView(
+      body: GradientBackgroundContainer(
+        pageData: SingleChildScrollView(
             child: Column(
           children: [
             SizedBox(
@@ -69,7 +46,7 @@ class _MyHomePageState extends State<MyApp> {
                 Column(
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.3,
                       height: MediaQuery.of(context).size.height * 0.1,
                       // decoration: BoxDecoration(
                       //   border: Border.all(width: 1.0, color: Colors.black),
@@ -77,7 +54,7 @@ class _MyHomePageState extends State<MyApp> {
                       child: const FittedBox(
                         fit: BoxFit.contain,
                         child: Text(
-                          "Cascadia Growth Insights",
+                          "Add the Power of Analytics to\nyour Growing Business Today",
                           style: TextStyle(
                               color: Colors.indigo,
                               fontWeight: FontWeight.bold),
@@ -89,57 +66,88 @@ class _MyHomePageState extends State<MyApp> {
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width * 0.37,
+                      height: MediaQuery.of(context).size.height * 0.30,
                       // decoration: BoxDecoration(
                       //   border: Border.all(width: 1.0, color: Colors.black),
                       // ),
-                      child: const Text(
-                        "We deliver value to growing businesses that are helping to shape the future. This is where data meets innovation to shape a brighter future. Our mission is to unearth the hidden potential within your data, providing you with the knowledge to make informed decisions that drive success.",
-                        style: TextStyle(color: Colors.indigo, fontSize: 24),
-                        softWrap: true,
+                      child: const FittedBox(
+                        fit: BoxFit.contain,
+                        child: Text(
+                          "At CGI, we deliver value to growing businesses that are helping local economies. \nThis is where data meets innovation to shape a brighter future. \nOur mission is to unearth the hidden potential within data, providing our \ncustomers with the knowledge to make informed decisions that drive success. \nSome of our core features include: \n \u2022 Secure cloud data storage\n \u2022 Scheduled Reporting to be delivered to you at your convenience\n \u2022 Real-Time data ingegration\n \u2022 Self-Service analytics that can meet your reporting requirements",
+                          style: TextStyle(color: Colors.indigo, height: 1.5),
+                          softWrap: true,
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1.0, color: Colors.black),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1.0, color: Colors.black),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1.0, color: Colors.black),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1.0, color: Colors.black),
-                      ),
-                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              height: MediaQuery.of(context).size.height * 0.05,
+                              // decoration: BoxDecoration(
+                              //   border:
+                              //       Border.all(width: 1.0, color: Colors.black),
+                              // ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.black,
+                                      backgroundColor: Colors.indigo),
+                                  child: const Text(
+                                    "LEARN MORE",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/OurProcess',
+                                    );
+                                  },
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              height: MediaQuery.of(context).size.height * 0.05,
+                              // decoration: BoxDecoration(
+                              //   border:
+                              //       Border.all(width: 1.0, color: Colors.black),
+                              // ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.black,
+                                      backgroundColor: Colors.indigo),
+                                  child: const Text(
+                                    "CONTACT US",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/ContactUs',
+                                    );
+                                  },
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    )
                   ],
                 ),
                 Column(
@@ -147,37 +155,14 @@ class _MyHomePageState extends State<MyApp> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.5,
-                      // decoration: BoxDecoration(
-                      //   border: Border.all(width: 1.0, color: Colors.black),
-                      // ),
                       child: Image.asset(
-                        'assets/cgi_db_logo_no_bg.png',
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1.0, color: Colors.black),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 1.0, color: Colors.black),
+                        'assets/cgi_logo_no_bg.png',
                       ),
                     ),
                   ],
                 ),
               ],
-            )
+            ),
           ],
         )),
       ),

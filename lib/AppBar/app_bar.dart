@@ -42,6 +42,24 @@ class _MyAppBarState extends State<MyAppBar> {
                     foregroundColor: Colors.black,
                     backgroundColor: Colors.indigo),
                 child: const Text(
+                  "LEARN MORE",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/OurProcess',
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.indigo),
+                child: const Text(
                   "REQUEST A DEMO",
                   style: TextStyle(color: Colors.white),
                 ),
