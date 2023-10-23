@@ -4,8 +4,13 @@ import 'package:cgi_app/small_attributes.dart';
 import 'package:flutter/material.dart';
 import 'AppBar/app_bar.dart';
 import 'package:cgi_app/route_generator.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,

@@ -6,15 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:cgi_app/small_attributes.dart';
 import 'package:cgi_app/CustomerPages/Drawer/drawer.dart';
 
-class CustomerSettings extends StatefulWidget {
-  const CustomerSettings({Key? key}) : super(key: key);
+class ApplicationSettings extends StatefulWidget {
+  final String customerId;
+  const ApplicationSettings(this.customerId, {Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _CustomerSettings();
+    return _ApplicationSettings();
   }
 }
 
-class _CustomerSettings extends State<CustomerSettings> {
+class _ApplicationSettings extends State<ApplicationSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

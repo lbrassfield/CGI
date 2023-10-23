@@ -1,3 +1,4 @@
+import 'package:cgi_app/CustomerPages/Drawer/logout_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:cgi_app/CustomerPages/Drawer/list_tile.dart';
 
@@ -36,7 +37,7 @@ class MyDrawer extends StatelessWidget {
               navigationPage: "/BillingHistory",
               icon: Icons.credit_card_rounded,
               title: "Billing History"),
-          const MyListTile(
+          const MyLogOutListTile(
               navigationPage: "/", icon: Icons.logout_rounded, title: "Logout"),
         ],
       ),

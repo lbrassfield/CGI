@@ -9,6 +9,7 @@ import 'package:cgi_app/CustomerPages/ApplicationSettings/application_settings.d
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
     switch (settings.name) {
       case '/LogIn':
         return MaterialPageRoute(
@@ -19,18 +20,24 @@ class RouteGenerator {
       case '/OurProcess':
         return MaterialPageRoute(
             builder: (_) => const OurProcess(), settings: settings);
-      case '/CustomerSettings':
-        return MaterialPageRoute(
-            builder: (_) => const CustomerSettings(), settings: settings);
+      case '/CustomerSettings/':
+        if (args is String) {
+          return MaterialPageRoute(
+              builder: (_) => ApplicationSettings(args), settings: settings);
+        }
       case '/Analytics':
         return MaterialPageRoute(
             builder: (_) => const Analytics(), settings: settings);
       case '/BillingHistory':
-        return MaterialPageRoute(
-            builder: (_) => BillingHistory(), settings: settings);
+        if (args is String) {
+          return MaterialPageRoute(
+              builder: (_) => BillingHistory(args), settings: settings);
+        }
       case '/DataIngestionHistory':
-        return MaterialPageRoute(
-            builder: (_) => DataIngestionHistory(), settings: settings);
+        if (args is String) {
+          return MaterialPageRoute(
+              builder: (_) => DataIngestionHistory(args), settings: settings);
+        }
     }
     throw MaterialPageRoute(builder: (_) => const LogIn(), settings: settings);
   }

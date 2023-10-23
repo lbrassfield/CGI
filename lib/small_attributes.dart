@@ -46,3 +46,36 @@ class GradientBackgroundContainer extends StatelessWidget {
         child: pageData);
   }
 }
+
+class ThreePercentVertSizedBox extends StatelessWidget {
+  const ThreePercentVertSizedBox({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.03,
+    );
+  }
+}
+
+class FivePercentVertSizedBox extends StatelessWidget {
+  const FivePercentVertSizedBox({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.05,
+    );
+  }
+}
+
+class OnePercentVertSizedBox extends StatelessWidget {
+  const OnePercentVertSizedBox({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.01,
+    );
+  }
+}

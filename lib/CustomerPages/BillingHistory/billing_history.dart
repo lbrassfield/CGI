@@ -6,7 +6,8 @@ import 'package:cgi_app/CustomerPages/BillingHistory/billing_history_tab.dart';
 
 class BillingHistory extends StatefulWidget {
   final List monthList = ['Aug, 2023', 'Sep, 2023', 'Oct, 2023'];
-  BillingHistory({Key? key}) : super(key: key);
+  final String customerId;
+  BillingHistory(this.customerId, {Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _BillingHistory();

@@ -1,6 +1,8 @@
 import 'package:cgi_app/small_attributes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cgi_app/AppBar/app_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
@@ -10,9 +12,12 @@ class LogIn extends StatefulWidget {
   }
 }
 
+final FirebaseFirestore db = FirebaseFirestore.instance;
+
 class _LogIn extends State<LogIn> {
   final controllerEmail = TextEditingController();
   final controllerPassword = TextEditingController();
+  final userDoc = db.collection("user_mapping").doc("user_maps");
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +27,13 @@ class _LogIn extends State<LogIn> {
         body: GradientBackgroundContainer(
           pageData: SingleChildScrollView(
             child: Column(children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.03,
-              ),
+              const ThreePercentVertSizedBox(),
               SizedBox(
                   height: MediaQuery.of(context).size.height * 0.3,
                   width: MediaQuery.of(context).size.height * 0.6,
                   child: const Image(
                       image: AssetImage('assets/cgi_logo_no_bg.png'))),
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.03,
-              ),
+              const ThreePercentVertSizedBox(),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.35,
                 child: TextField(
@@ -50,9 +51,7 @@ class _LogIn extends State<LogIn> {
                       focusColor: Colors.black),
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.01,
-              ),
+              const OnePercentVertSizedBox(),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.35,
                 child: TextField(
@@ -71,18 +70,16 @@ class _LogIn extends State<LogIn> {
                       focusColor: Colors.black),
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.width * 0.01,
-              ),
+              const OnePercentVertSizedBox(),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.35,
                 height: MediaQuery.of(context).size.height * 0.06,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      '/Analytics',
-                    );
+                    signInUsingEmailPassword(
+                        email: controllerEmail.text,
+                        password: controllerPassword.text,
+                        context: context);
                   },
                   style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
@@ -96,5 +93,77 @@ class _LogIn extends State<LogIn> {
             ]),
           ),
         ));
+  }
+
+  void showSuccess(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Success!"),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showError(String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Wrong Email or Password"),
+          content: Text(errorMessage),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<User?> signInUsingEmailPassword({
+    required String email,
+    required String password,
+    required BuildContext context,
+  }) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+
+    try {
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      user = userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        showError('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        showError('Wrong password provided.');
+      }
+    }
+    if (user != null) {
+      showSuccess("Login Successful!");
+      setState(() {});
+      if (context.mounted) Navigator.pushNamed(context, '/Analytics');
+    } else {
+      showError(
+          'Check the username and password and try again!\nOr, contact our team for support.');
+    }
+    return null;
   }
 }

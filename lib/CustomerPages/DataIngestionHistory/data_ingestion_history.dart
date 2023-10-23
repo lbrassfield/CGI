@@ -6,7 +6,8 @@ import 'package:cgi_app/CustomerPages/DataIngestionHistory/data_ingestion_histor
 
 class DataIngestionHistory extends StatefulWidget {
   final List monthList = ['Aug, 2023', 'Sep, 2023', 'Oct, 2023'];
-  DataIngestionHistory({Key? key}) : super(key: key);
+  final String customerId;
+  DataIngestionHistory(this.customerId, {Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _DataIngestionHistory();
