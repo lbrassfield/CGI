@@ -1,0 +1,32 @@
+{
+    "customer_id":"MLFIN",
+    "customer_name": "Morgan & Lindsey Finances",
+    "ingestion_settings": [
+        {
+            "source_id": 1, 
+            "source_name": "Expense Tracker - Morgan & Lindsey",
+            "source_type": "Google Sheets", 
+            "source_details": {
+                "password": "",
+                "username": ""
+            },
+            "ingestion_frequency": "daily"
+        }
+    ],
+    "product_settings": {
+        "product_config": [
+            "personal_finance.json"
+        ],
+        "default_landing_page": true, 
+        "custom_dashboard_option": true, 
+        "default_date_range": {
+            "start": "2023-07-01",
+            "end": "2023-12-31"
+        },
+        "update_frequency": "real_time"
+    },
+    "billing_settings": {
+        "billing_frequency": "monthly",
+        "billing_method": "stripe"
+    }
+}
