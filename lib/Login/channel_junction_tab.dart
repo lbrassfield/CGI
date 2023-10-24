@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+
+class ChannelJunctionTab extends StatefulWidget {
+  final String customerString;
+  const ChannelJunctionTab({Key? key, required this.customerString})
+      : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return _ChannelJunctionTab();
+  }
+}
+
+class _ChannelJunctionTab extends State<ChannelJunctionTab> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.2),
+      child: ExpansionTile(
+        collapsedBackgroundColor: Colors.indigo,
+        backgroundColor: Colors.indigo,
+        iconColor: Colors.white,
+        textColor: Colors.white,
+        collapsedIconColor: Colors.white,
+        title: Text(
+          widget.customerString,
+          style: const TextStyle(
+              fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        children: [
+          Form(
+            child: Column(
+              children: [
+                Row(children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.03,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/Analytics/',
+                            arguments: widget.customerString);
+                      },
+                      child: Text(widget.customerString))
+                ]),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.03,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

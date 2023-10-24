@@ -1,8 +1,16 @@
+import 'package:cgi_app/Login/user_class.dart';
 import 'package:cgi_app/small_attributes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cgi_app/AppBar/app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+class ChannelJunctionArgs {
+  final String userId;
+  final List customerList;
+
+  ChannelJunctionArgs(this.userId, this.customerList);
+}
 
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
@@ -13,11 +21,54 @@ class LogIn extends StatefulWidget {
 }
 
 final FirebaseFirestore db = FirebaseFirestore.instance;
+final FirebaseAuth auth = FirebaseAuth.instance;
 
 class _LogIn extends State<LogIn> {
   final controllerEmail = TextEditingController();
   final controllerPassword = TextEditingController();
   final userDoc = db.collection("user_mapping").doc("user_maps");
+  Future<List<Map<String, dynamic>>> fetchUsers() async {
+    final QuerySnapshot usersQuery =
+        await FirebaseFirestore.instance.collection('user_mapping').get();
+    final List<Map<String, dynamic>> users =
+        usersQuery.docs.map((DocumentSnapshot doc) {
+      return doc.data() as Map<String, dynamic>;
+    }).toList();
+    return users;
+  }
+
+  UserCustomerData? myData;
+  String? getUser() {
+    final User? user = auth.currentUser;
+    try {
+      return user!.email;
+    } on Exception {
+      return null;
+    }
+  }
+
+  String? getUserId() {
+    final User? user = auth.currentUser;
+    try {
+      return user!.uid;
+    } on Exception {
+      return null;
+    }
+  }
+
+  Future<List<String>> getCustomerIds() async {
+    List<String> customerList = [];
+    for (var customer in await fetchUsers()) {
+      for (var map in customer['user_data']) {
+        if (getUser() == map['email']) {
+          customerList.add(map['customer_id']);
+        } else {
+          DoNothingAction();
+        }
+      }
+    }
+    return customerList;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +210,15 @@ class _LogIn extends State<LogIn> {
     if (user != null) {
       showSuccess("Login Successful!");
       setState(() {});
-      if (context.mounted) Navigator.pushNamed(context, '/Analytics');
+      List customerList = await getCustomerIds();
+      String userId = getUserId()!;
+      if (context.mounted && customerList.length == 1) {
+        Navigator.pushNamed(context, '/Analytics/', arguments: customerList[0]);
+      } else if (context.mounted && customerList.length > 1) {
+        Navigator.pushNamed(context, '/ChannelJunction/',
+            arguments: ChannelJunctionArgs(userId, customerList));
+      }
+      ;
     } else {
       showError(
           'Check the username and password and try again!\nOr, contact our team for support.');
