@@ -38,15 +38,6 @@ class _LogIn extends State<LogIn> {
   }
 
   UserCustomerData? myData;
-  String? getUser() {
-    final User? user = auth.currentUser;
-    try {
-      return user!.email;
-    } on Exception {
-      return null;
-    }
-  }
-
   String? getUserId() {
     final User? user = auth.currentUser;
     try {
@@ -57,24 +48,24 @@ class _LogIn extends State<LogIn> {
   }
 
   Future<List<String>> getCustomerIds() async {
-    List<String> customerList = [];
     for (var customer in await fetchUsers()) {
       for (var map in customer['user_data']) {
-        if (getUser() == map['email']) {
-          customerList.add(map['customer_id']);
+        if (getUserId() == map['user_id']) {
+          return map['customer_list'];
         } else {
           DoNothingAction();
         }
       }
     }
-    return customerList;
+    throw [];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const PreferredSize(
-            preferredSize: Size.fromHeight(60), child: MyAppBar()),
+            preferredSize: Size.fromHeight(60),
+            child: MyAppBar(pageName: "Login")),
         body: GradientBackgroundContainer(
           pageData: SingleChildScrollView(
             child: Column(children: [
@@ -128,9 +119,10 @@ class _LogIn extends State<LogIn> {
                 child: ElevatedButton(
                   onPressed: () {
                     signInUsingEmailPassword(
-                        email: controllerEmail.text,
-                        password: controllerPassword.text,
-                        context: context);
+                      email: controllerEmail.text,
+                      password: controllerPassword.text,
+                      context: context,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
@@ -210,15 +202,9 @@ class _LogIn extends State<LogIn> {
     if (user != null) {
       showSuccess("Login Successful!");
       setState(() {});
-      List customerList = await getCustomerIds();
-      String userId = getUserId()!;
-      if (context.mounted && customerList.length == 1) {
-        Navigator.pushNamed(context, '/Analytics/', arguments: customerList[0]);
-      } else if (context.mounted && customerList.length > 1) {
-        Navigator.pushNamed(context, '/ChannelJunction/',
-            arguments: ChannelJunctionArgs(userId, customerList));
+      if (context.mounted) {
+        Navigator.pushNamed(context, '/Analytics/', arguments: getUserId()!);
       }
-      ;
     } else {
       showError(
           'Check the username and password and try again!\nOr, contact our team for support.');

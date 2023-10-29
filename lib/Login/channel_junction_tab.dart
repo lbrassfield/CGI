@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ChannelJunctionTab extends StatefulWidget {
+class ChannelJunctionTab extends StatelessWidget {
   final String customerString;
   const ChannelJunctionTab({Key? key, required this.customerString})
       : super(key: key);
-  @override
-  State<StatefulWidget> createState() {
-    return _ChannelJunctionTab();
-  }
-}
-
-class _ChannelJunctionTab extends State<ChannelJunctionTab> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +16,7 @@ class _ChannelJunctionTab extends State<ChannelJunctionTab> {
         textColor: Colors.white,
         collapsedIconColor: Colors.white,
         title: Text(
-          widget.customerString,
+          customerString,
           style: const TextStyle(
               fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white),
         ),
@@ -38,9 +31,9 @@ class _ChannelJunctionTab extends State<ChannelJunctionTab> {
                   ElevatedButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/Analytics/',
-                            arguments: widget.customerString);
+                            arguments: customerString);
                       },
-                      child: Text(widget.customerString))
+                      child: Text(customerString))
                 ]),
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.03,

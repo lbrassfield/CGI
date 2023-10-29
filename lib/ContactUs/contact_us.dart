@@ -29,7 +29,10 @@ class _ContactUs extends State<ContactUs> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const PreferredSize(
-            preferredSize: Size.fromHeight(60), child: MyAppBar()),
+            preferredSize: Size.fromHeight(60),
+            child: MyAppBar(
+              pageName: "Contact Us",
+            )),
         body: GradientBackgroundContainer(
           pageData: SingleChildScrollView(
             child: Form(

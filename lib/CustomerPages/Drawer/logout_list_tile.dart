@@ -27,7 +27,9 @@ class MyLogOutListTile extends StatelessWidget {
       ),
       onTap: () async {
         await FirebaseAuth.instance.signOut();
-        Navigator.pushNamed(context, navigationPage);
+        if (context.mounted) {
+          Navigator.pushNamed(context, navigationPage);
+        }
       },
     );
   }

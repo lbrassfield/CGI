@@ -1,5 +1,5 @@
 // ignore_for_file: sized_box_for_whitespace
-
+import 'package:cgi_app/CustomerPages/Drawer/drawer.dart';
 import 'package:cgi_app/small_attributes.dart';
 import 'package:flutter/material.dart';
 import 'AppBar/app_bar.dart';
@@ -36,7 +36,8 @@ class _MyHomePageState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(60), child: MyAppBar()),
+          preferredSize: Size.fromHeight(60),
+          child: MyAppBar(pageName: "Home")),
       body: GradientBackgroundContainer(
         pageData: SingleChildScrollView(
             child: Column(
@@ -170,6 +171,10 @@ class _MyHomePageState extends State<MyApp> {
             ),
           ],
         )),
+      ),
+      endDrawer: const MyDrawer(
+        userFirstName: "Lindsey",
+        userLastName: "Brassfield",
       ),
     );
   }
