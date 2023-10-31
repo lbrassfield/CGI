@@ -1,4 +1,6 @@
-import 'package:cgi_app/AppBar/NavButtons/PageName.dart';
+import 'dart:async';
+
+import 'package:cgi_app/AppBar/NavButtons/page_name.dart';
 import 'package:cgi_app/AppBar/NavButtons/contact_us_button.dart';
 import 'package:cgi_app/AppBar/NavButtons/home_button.dart';
 import 'package:cgi_app/AppBar/NavButtons/learn_more_button.dart';
@@ -18,50 +20,59 @@ class MyAppBar extends StatefulWidget {
 final FirebaseAuth auth = FirebaseAuth.instance;
 
 class _MyAppBarState extends State<MyAppBar> {
+  late StreamSubscription<User?> user;
+  @override
+  void initState() {
+    super.initState();
+    user = auth.authStateChanges().listen((user) {
+      if (user == null) {
+        // print("User is not authenticated.");
+      } else {
+        // print("User authenticated.");
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<bool> authenticatedUser() async {
-      final User? user = auth.currentUser;
-      if (user != null) {
-        print("user is authenticated!");
-        return true;
-      } else {
-        print("user is not authenticated!");
-        return false;
-      }
-    }
-
-    return MediaType(
-      desktop: FutureBuilder(
-          future: authenticatedUser(),
-          builder: (context, snapshot) {
-            if (snapshot.data != null) {
-              return AppBar(
-                iconTheme: const IconThemeData(color: Colors.indigo),
-                backgroundColor: Colors.white,
-                title: PageName(pageName: widget.pageName),
-                automaticallyImplyLeading: false,
-              );
-            } else {
-              return AppBar(
-                backgroundColor: Colors.white,
-                title: const HomeButton(),
-                automaticallyImplyLeading: false,
-                actions: const [
-                  LearnMoreButton(),
-                  ContactUsButton(),
-                  LoginButton(),
-                ],
-              );
-            }
-          }),
-      mobile: AppBar(
-        iconTheme: const IconThemeData(
-          color: Color.fromARGB(255, 255, 203, 59),
+    if (auth.currentUser == null) {
+      return MediaType(
+        desktop: AppBar(
+          backgroundColor: Colors.white,
+          title: const HomeButton(),
+          automaticallyImplyLeading: false,
+          actions: const [
+            LearnMoreButton(),
+            ContactUsButton(),
+            LoginButton(),
+          ],
         ),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        title: Row(children: [Container()]),
-      ),
-    );
+        mobile: AppBar(
+          backgroundColor: Colors.white,
+          title: const HomeButton(),
+          automaticallyImplyLeading: false,
+          actions: const [
+            LearnMoreButton(),
+            ContactUsButton(),
+            LoginButton(),
+          ],
+        ),
+      );
+    } else {
+      return MediaType(
+        desktop: AppBar(
+          iconTheme: const IconThemeData(color: Colors.indigo),
+          backgroundColor: Colors.white,
+          title: PageName(pageName: widget.pageName),
+          automaticallyImplyLeading: false,
+        ),
+        mobile: AppBar(
+          iconTheme: const IconThemeData(color: Colors.indigo),
+          backgroundColor: Colors.white,
+          title: PageName(pageName: widget.pageName),
+          automaticallyImplyLeading: false,
+        ),
+      );
+    }
   }
 }

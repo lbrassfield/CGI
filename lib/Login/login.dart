@@ -5,13 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:cgi_app/AppBar/app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class ChannelJunctionArgs {
-  final String userId;
-  final List customerList;
-
-  ChannelJunctionArgs(this.userId, this.customerList);
-}
-
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
   @override
@@ -203,7 +196,8 @@ class _LogIn extends State<LogIn> {
       showSuccess("Login Successful!");
       setState(() {});
       if (context.mounted) {
-        Navigator.pushNamed(context, '/Analytics/', arguments: getUserId()!);
+        // Navigator.pushNamed(context, '/Analytics/', arguments: getUserId()!);
+        Navigator.pushNamed(context, '/Analytics');
       }
     } else {
       showError(

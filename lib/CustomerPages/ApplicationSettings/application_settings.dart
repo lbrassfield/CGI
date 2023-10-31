@@ -7,8 +7,7 @@ import 'package:cgi_app/small_attributes.dart';
 import 'package:cgi_app/CustomerPages/Drawer/drawer.dart';
 
 class ApplicationSettings extends StatefulWidget {
-  final String userId;
-  const ApplicationSettings(this.userId, {Key? key}) : super(key: key);
+  const ApplicationSettings({Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _ApplicationSettings();

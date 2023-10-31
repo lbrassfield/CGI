@@ -7,8 +7,8 @@ class MyDrawer extends StatelessWidget {
       {Key? key, required this.userFirstName, required this.userLastName})
       : super(key: key);
 
-  final String userFirstName;
-  final String userLastName;
+  final String? userFirstName;
+  final String? userLastName;
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +33,19 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
           MyListTile(
-              navigationPage: "/Analytics/",
+              navigationPage: "/Analytics",
               icon: Icons.analytics_rounded,
               title: "Analytics"),
           MyListTile(
-              navigationPage: "/CustomerSettings/",
+              navigationPage: "/ApplicationSettings",
               icon: Icons.settings_rounded,
               title: "Application Settings"),
           MyListTile(
-              navigationPage: "/DataIngestionHistory/",
+              navigationPage: "/DataIngestionHistory",
               icon: Icons.cloud_sync_rounded,
               title: "Data Ingestion History"),
           MyListTile(
-              navigationPage: "/BillingHistory/",
+              navigationPage: "/BillingHistory",
               icon: Icons.credit_card_rounded,
               title: "Billing History"),
           const MyLogOutListTile(

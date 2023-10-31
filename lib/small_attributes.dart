@@ -79,3 +79,21 @@ class OnePercentVertSizedBox extends StatelessWidget {
     );
   }
 }
+
+class IndigoCircularProgress extends StatelessWidget {
+  final int height;
+  final int width;
+
+  const IndigoCircularProgress(
+      {required this.height, required this.width, super.key});
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: SizedBox(
+          width: 100,
+          height: 100,
+          child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.indigo))),
+    );
+  }
+}

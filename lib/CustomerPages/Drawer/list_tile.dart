@@ -13,18 +13,8 @@ class MyListTile extends StatelessWidget {
   final IconData icon;
   final String title;
   final FirebaseAuth auth = FirebaseAuth.instance;
-  Stream<User?> get authState => auth.authStateChanges();
   @override
   Widget build(BuildContext context) {
-    String? getUserId() {
-      final User? user = auth.currentUser;
-      try {
-        return user!.uid;
-      } on Exception {
-        return null;
-      }
-    }
-
     return ListTile(
       leading: Icon(
         icon,
@@ -36,7 +26,7 @@ class MyListTile extends StatelessWidget {
         style: const TextStyle(fontSize: 18, color: Colors.white),
       ),
       onTap: () {
-        Navigator.pushNamed(context, navigationPage, arguments: getUserId());
+        Navigator.pushNamed(context, navigationPage);
       },
     );
   }
