@@ -4,6 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cgi_app/AppBar/app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:googleapis/bigquery/v2.dart' as bigquery;
+
+// final GoogleSignIn _googleSignIn = GoogleSignIn(
+//     scopes: <String>[bigquery.BigqueryApi.bigqueryScope],
+//     clientId:
+//         '266830134123-s1okc7u156qabeig5to445ohg9h6cmgo.apps.googleusercontent.com');
 
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
@@ -171,6 +178,14 @@ class _LogIn extends State<LogIn> {
     );
   }
 
+  // Future<void> _handleSignIn() async {
+  //   try {
+  //     await _googleSignIn.signInSilently();
+  //   } catch (error) {
+  //     print(error); // ignore: avoid_print
+  //   }
+  // }
+
   Future<User?> signInUsingEmailPassword({
     required String email,
     required String password,
@@ -193,6 +208,7 @@ class _LogIn extends State<LogIn> {
       }
     }
     if (user != null) {
+      // _handleSignIn();
       showSuccess("Login Successful!");
       setState(() {});
       if (context.mounted) {

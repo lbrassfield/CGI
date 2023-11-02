@@ -38,6 +38,10 @@ dependencies:
   firebase_auth: ^4.11.1
   firebase_core: ^2.19.0
   cloud_firestore: ^4.11.0
+  googleapis: ^11.4.0
+  google_sign_in: ^6.1.5
+  extension_google_sign_in_as_googleapis_auth: ^2.0.11
+  googleapis_auth: ^1.4.1
 
 dev_dependencies:
   flutter_test:

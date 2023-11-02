@@ -15,10 +15,7 @@ class BillingHistory extends StatelessWidget {
             child: MyAppBar(
               pageName: "Billing History",
             )),
-        endDrawer: const MyDrawer(
-          userFirstName: "Lindsey",
-          userLastName: "Brassfield",
-        ),
+        endDrawer: const MyDrawer(),
         body: GradientBackgroundContainer(
           pageData: SingleChildScrollView(
             child: Column(

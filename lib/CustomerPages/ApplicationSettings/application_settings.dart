@@ -23,10 +23,7 @@ class _ApplicationSettings extends State<ApplicationSettings> {
             child: MyAppBar(
               pageName: "Application Settings",
             )),
-        endDrawer: const MyDrawer(
-          userFirstName: "Lindsey",
-          userLastName: "Brassfield",
-        ),
+        endDrawer: const MyDrawer(),
         body: GradientBackgroundContainer(
           pageData: SingleChildScrollView(
             child: Column(

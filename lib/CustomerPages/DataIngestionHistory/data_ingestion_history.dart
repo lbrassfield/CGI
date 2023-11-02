@@ -15,10 +15,7 @@ class DataIngestionHistory extends StatelessWidget {
             child: MyAppBar(
               pageName: "Data Ingestion History",
             )),
-        endDrawer: const MyDrawer(
-          userFirstName: "Lindsey",
-          userLastName: "Brassfield",
-        ),
+        endDrawer: const MyDrawer(),
         body: GradientBackgroundContainer(
           pageData: SingleChildScrollView(
             child: Column(
