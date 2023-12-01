@@ -1,4 +1,4 @@
-import 'package:cgi_app/CustomerPages/analytics.dart';
+import 'package:cgi_app/CustomerPages/Analytics/analytics.dart';
 import 'package:cgi_app/CustomerPages/BillingHistory/billing_history.dart';
 import 'package:cgi_app/CustomerPages/DataIngestionHistory/data_ingestion_history.dart';
 import 'package:cgi_app/Process/our_process.dart';

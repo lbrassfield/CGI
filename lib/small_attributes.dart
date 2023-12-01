@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 class MediaType extends StatelessWidget {
   final Widget mobile;
@@ -99,5 +102,58 @@ class CircularProgress extends StatelessWidget {
           child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(color))),
     );
+  }
+}
+
+class CustomFunctions {
+  static Future<String> getDbAccessSecret(
+      FirebaseAuth auth, FirebaseFirestore db) async {
+    final QuerySnapshot usersQuery = await db.collection('user_mapping').get();
+    final List<Map<String, dynamic>> users =
+        usersQuery.docs.map((DocumentSnapshot doc) {
+      if (doc.data() == true) {}
+      return doc.data() as Map<String, dynamic>;
+    }).toList();
+    for (var userObject in users) {
+      for (var userMap in userObject.values) {
+        for (var user in userMap) {
+          if (user['user_id'] == auth.currentUser!.uid) {
+            return 'MLFIN_DB';
+          }
+        }
+      }
+    }
+    throw DoNothingAction();
+  }
+
+  static Future<dynamic> getServiceCreds(FirebaseFunctions function,
+      FirebaseAuth auth, FirebaseFirestore db) async {
+    try {
+      var args = await getDbAccessSecret(auth, db);
+      final response =
+          await function.httpsCallable('get_service_acct').call(args);
+      final data = response
+          .data; // This will contain the JSON response from your Firebase Function
+      return data;
+    } catch (e) {
+      return 'Error calling Firebase Function: $e';
+    }
+  }
+
+  static Future<dynamic> getData(FirebaseFunctions function, FirebaseAuth auth,
+      FirebaseFirestore db, String queryString) async {
+    var secretArg = await getDbAccessSecret(auth, db);
+    var queryArg = queryString;
+    var args = {
+      "args": {"secret_name": secretArg, "query_string": queryArg}
+    };
+    try {
+      final response =
+          await function.httpsCallable('query_big_query').call(args);
+      final data = response.data;
+      return data;
+    } catch (e) {
+      return 'Error calling Firebase Function: $e';
+    }
   }
 }

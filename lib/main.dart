@@ -1,5 +1,3 @@
-// ignore_for_file: sized_box_for_whitespace
-import 'dart:async';
 import 'package:cgi_app/AppBar/NavButtons/contact_us_button.dart';
 import 'package:cgi_app/AppBar/NavButtons/learn_more_button.dart';
 import 'package:cgi_app/CustomerPages/Drawer/drawer.dart';
@@ -11,13 +9,7 @@ import 'AppBar/app_bar.dart';
 import 'package:cgi_app/route_generator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
-import 'package:googleapis/bigquery/v2.dart' as bigquery;
-import 'package:googleapis_auth/googleapis_auth.dart' as auth show AuthClient;
 
-final GoogleSignIn _googleSignIn =
-    GoogleSignIn(scopes: <String>[bigquery.BigqueryApi.bigqueryScope]);
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -45,56 +37,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyApp> {
-  GoogleSignInAccount? _currentUser;
-
-  @override
-  void initState() {
-    super.initState();
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
-      setState(() {
-        _currentUser = account;
-      });
-      if (_currentUser != null) {
-        _handleGetContact();
-        print('user is logged in!');
-      } else {
-        print('user not logged in!');
-      }
-    });
-    _googleSignIn.signInSilently();
-  }
-
-  Future<void> _handleGetContact() async {
-    String contactText = '';
-    setState(() {
-      contactText = 'Loading contact info...';
-    });
-
-    // Retrieve an [auth.AuthClient] from the current [GoogleSignIn] instance.
-    final auth.AuthClient? client = await _googleSignIn.authenticatedClient();
-
-    assert(client != null, 'Authenticated client missing!');
-
-    // Prepare a Bigquery Service authenticated client.
-    final bigquery.BigqueryApi bigqueryApi = bigquery.BigqueryApi(client!);
-    // Retrieve a list of the datasets
-    final bigquery.DatasetList response =
-        await bigqueryApi.datasets.list('cascadia-growth-insights');
-    print(response);
-  }
-
-  // late StreamSubscription<User?> user;
-  // void initState() {
-  //   super.initState();
-  //   user = FirebaseAuth.instance.authStateChanges().listen((user) {
-  //     if (user == null) {
-  //       // print("User is currently signed out!");
-  //     } else {
-  //       // print("User is currently signed in!");
-  //     }
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
