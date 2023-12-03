@@ -43,7 +43,7 @@ def get_service_acct(req):
 def query_big_query(req):
     try:
         secret_name = req.data.get("args").get("secret_name")  # Assuming the request includes "secret_name" key
-        query_string = req.data.get("args").get("query_string") # Assuming the request includes "secret_name" key
+        query_string = req.data.get("args").get("query_string") # Assuming the request includes "query_string" key
 
         if not secret_name or not query_string:
             raise https_fn.HttpsError(

@@ -1,3 +1,4 @@
+import 'package:cgi_app/CustomerPages/Analytics/QueryData/query_data.dart';
 import 'package:cgi_app/CustomerPages/Analytics/analytics.dart';
 import 'package:cgi_app/CustomerPages/BillingHistory/billing_history.dart';
 import 'package:cgi_app/CustomerPages/DataIngestionHistory/data_ingestion_history.dart';
@@ -25,6 +26,9 @@ class RouteGenerator {
       case '/Analytics':
         return MaterialPageRoute(
             builder: (_) => const Analytics(), settings: settings);
+      case '/QueryData':
+        return MaterialPageRoute(
+            builder: (_) => const QueryData(), settings: settings);
       case '/BillingHistory':
         return MaterialPageRoute(
             builder: (_) => BillingHistory(), settings: settings);

@@ -77,8 +77,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         return const Column(
                           children: [
                             FivePercentVertSizedBox(),
-                            CircularProgress(
-                                color: Colors.white, height: 10, width: 10),
+                            CircularProgress(color: Colors.white, height: 10),
                           ],
                         );
                       default:

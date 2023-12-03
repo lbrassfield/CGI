@@ -34,6 +34,7 @@ class _ApplicationSettings extends State<ApplicationSettings> {
                       height: MediaQuery.of(context).size.height * 0.10,
                     ),
                     const GeneralSettings(),
+                    const OnePercentVertSizedBox(),
                     const BillingSettings(),
                     const IngestionSettings(),
                   ],

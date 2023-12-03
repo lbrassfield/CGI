@@ -85,20 +85,16 @@ class OnePercentVertSizedBox extends StatelessWidget {
 
 class CircularProgress extends StatelessWidget {
   final double? height;
-  final double? width;
   final Color color;
 
   const CircularProgress(
-      {required this.height,
-      required this.width,
-      required this.color,
-      super.key});
+      {required this.height, required this.color, super.key});
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
           width: height,
-          height: width,
+          height: height,
           child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(color))),
     );
@@ -153,7 +149,8 @@ class CustomFunctions {
       final data = response.data;
       return data;
     } catch (e) {
-      return 'Error calling Firebase Function: $e';
+      // return 'Error calling Firebase Function: $e';
+      return e;
     }
   }
 }

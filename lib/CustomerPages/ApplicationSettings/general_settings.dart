@@ -28,6 +28,8 @@ class _GeneralSettings extends State<GeneralSettings> {
         iconColor: Colors.white,
         textColor: Colors.white,
         collapsedIconColor: Colors.white,
+        collapsedShape: const ContinuousRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20))),
         title: const Text(
           "General Settings",
           style: TextStyle(
