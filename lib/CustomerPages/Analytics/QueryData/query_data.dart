@@ -31,8 +31,7 @@ class _QueryData extends State<QueryData> {
     if (loadData == true) {
       final response =
           await CustomFunctions.getData(function, auth, db, _queryString.text);
-
-      if (response != null) {
+      if (jsonDecode(response)['status'] == 'error') {
         return response;
       } else {
         return response;
@@ -200,15 +199,13 @@ class _QueryData extends State<QueryData> {
                                   ),
                                 );
                               } else {
-                                print(snapshot.data);
-                                if (snapshot.data.substring(0, 5) != 'Error') {
-                                  print(snapshot.data);
+                                if (jsonDecode(snapshot.data)['status'] ==
+                                    'error') {
+                                  return Text(jsonDecode(
+                                      snapshot.data)['error_message']);
+                                } else {
                                   return DynamicDataTable(
                                       jsonDecode(snapshot.data));
-                                } else {
-                                  print(snapshot.data);
-                                  return Text(
-                                      'There was an error: ${snapshot.data}');
                                 }
                               }
                             },

@@ -65,7 +65,7 @@ def query_big_query(req):
         rows = query_job.result()
         schema = query_job.result().schema
         column_names = [field.name for field in schema]
-        result_set = {'column_names': column_names, 'results':[tuple(row) for row in rows]}
+        result_set = {'status': 'success','column_names': column_names, 'results':[tuple(row) for row in rows]}
         result_set_json = json.dumps(result_set, default=serialize_datetime)
 
         return result_set_json

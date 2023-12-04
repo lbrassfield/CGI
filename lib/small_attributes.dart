@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -148,9 +150,10 @@ class CustomFunctions {
           await function.httpsCallable('query_big_query').call(args);
       final data = response.data;
       return data;
-    } catch (e) {
+    } on FirebaseFunctionsException catch (e) {
       // return 'Error calling Firebase Function: $e';
-      return e;
+      return jsonEncode(
+          {"status": "error", "error_message": e.message.toString()});
     }
   }
 }
